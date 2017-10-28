@@ -114,6 +114,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+ALLOWED_HOSTS = ["shelter-bot.herokuapp.com"]
+
 ROOT_URLCONF = 'shelterbot.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
