@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/sarah-story/shelterbot.svg?branch=master)](https://travis-ci.org/sarah-story/shelterbot)
+
 # Shelterbot
 Let's help people get shelter
 
