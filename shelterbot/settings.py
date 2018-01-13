@@ -180,7 +180,7 @@ LOGGING = {
             'propagate': True,
         },
         'rapidsms': {
-            'handlers': ['file'],
+            'handlers': ['file', 'console'],
             'level': 'DEBUG',
             'propagate': True,
         },
@@ -240,6 +240,7 @@ RAPIDSMS_HANDLERS = (
     'rapidsms.contrib.echo.handlers.echo.EchoHandler',
     'rapidsms.contrib.echo.handlers.ping.PingHandler',
     'shelterbot.handlers.help.HelpHandler',
+    'shelterbot.handlers.weather.WeatherHandler',
 )
 
 ALLOWED_KEYWORDS = {
