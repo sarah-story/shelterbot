@@ -184,6 +184,16 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
+        'shelterbot': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        '': {
+            'handlers': ['console'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
     }
 }
 
