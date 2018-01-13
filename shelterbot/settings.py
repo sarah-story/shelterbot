@@ -1,6 +1,7 @@
 # Django settings for shelterbot project.
 
 import os
+import dj_database_url
 
 # The top directory for this project. Contains requirements/, manage.py,
 # and README.rst, a shelterbot directory with settings etc (see
@@ -31,6 +32,9 @@ DATABASES = {
         'PORT': '',
     }
 }
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
