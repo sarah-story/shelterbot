@@ -7,6 +7,10 @@ logger = logging.getLogger(__name__)
 
 
 class EmergencyShelterDecisionHandler(BaseHandler):
+    """
+    For when the user has been asked if they would like to go to an
+    emergency shelter
+    """
 
     @classmethod
     def dispatch(cls, router, msg):

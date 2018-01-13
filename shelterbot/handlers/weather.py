@@ -8,6 +8,9 @@ logger = logging.getLogger(__name__)
 
 
 class WeatherHandler(BaseHandler):
+    """
+    For a user to ask what the weather is tonight
+    """
 
     @classmethod
     def dispatch(cls, router, msg):
