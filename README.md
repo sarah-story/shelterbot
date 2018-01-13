@@ -21,3 +21,10 @@ Let's help people get shelter
     ```
     heroku local
     ```
+
+## Running the tests
+
+In your virtual environment:
+```
+python manage.py test
+```

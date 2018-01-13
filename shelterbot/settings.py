@@ -222,4 +222,9 @@ LOGIN_REDIRECT_URL = '/'
 RAPIDSMS_HANDLERS = (
     'rapidsms.contrib.echo.handlers.echo.EchoHandler',
     'rapidsms.contrib.echo.handlers.ping.PingHandler',
+    'shelterbot.handlers.help.HelpHandler',
 )
+
+ALLOWED_KEYWORDS = {
+    "WEATHER": "If you text WEATHER, you will get a report of the expected weather for this evening."
+}
