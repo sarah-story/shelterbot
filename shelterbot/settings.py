@@ -199,6 +199,7 @@ INSTALLED_APPS = (
     # External apps
     "django_tables2",
     "selectable",
+    'rtwilio',
     # RapidSMS
     "rapidsms",
     "rapidsms.backends.database",
@@ -216,6 +217,22 @@ INSTALLED_BACKENDS = {
         "ENGINE": "rapidsms.backends.database.DatabaseBackend",
     },
 }
+
+# Twillio Settings
+TWILLIO_ACCOUNT_SID = os.environ.get('TWILLIO_ACCOUNT_SID', None) #TODO: default these for local testing values
+TWILLIO_AUTH_TOKEN = os.environ.get('TWILLIO_AUTH_TOKEN', None)
+TWILLIO_PHONE_NUMBER = os.environ.get('TWILLIO_PHONE_NUMBER', None)
+if TWILLIO_ACCOUNT_SID and TWILLIO_AUTH_TOKEN and TWILLIO_PHONE_NUMBER:
+    INSTALLED_BACKENDS["twilio-backend"] = {
+        "ENGINE": "rtwilio.outgoing.TwilioBackend",
+        'config': {
+            'account_sid': TWILLIO_ACCOUNT_SID,  # (required)
+            'auth_token': TWILLIO_AUTH_TOKEN,  # (required)
+            'number': TWILLIO_PHONE_NUMBER,  # your Twilio phone number (required)
+            # optional callback URL
+            # 'callback': 'http://<public-django-instance>/backend/twilio/status-callback/',
+        }
+    }
 
 LOGIN_REDIRECT_URL = '/'
 

@@ -4,3 +4,4 @@ gunicorn==0.17.4
 whitenoise==3.3.1
 dj-database-url==0.4.2
 psycopg2==2.7.1
+rapidsms-twilio==1.0.1
