@@ -10,7 +10,7 @@ class WeatherHandler(BaseHandler):
 
     @classmethod
     def dispatch(cls, router, msg):
-        if msg.text == "weather":
+        if msg.text.lower() == "weather":
             tonight_temp = cls.get_weather()
             msg.respond("The temperature tonight should be about %d degrees" % tonight_temp)
             if tonight_temp > 25:
