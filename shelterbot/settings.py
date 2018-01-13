@@ -121,7 +121,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ALLOWED_HOSTS = ["shelter-bot.herokuapp.com", "shelter-bot-dev.herokuapp.com"]
+ALLOWED_HOSTS = ["shelter-bot.herokuapp.com", "shelter-bot-dev.herokuapp.com", "localhost"]
 
 ROOT_URLCONF = 'shelterbot.urls'
 
