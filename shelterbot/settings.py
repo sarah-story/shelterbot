@@ -206,6 +206,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.humanize',
     'django.contrib.sitemaps',
+    # Internal apps
+    'state_management',
     # External apps
     "django_tables2",
     "selectable",
@@ -247,6 +249,7 @@ if TWILLIO_ACCOUNT_SID and TWILLIO_AUTH_TOKEN and TWILLIO_PHONE_NUMBER:
 LOGIN_REDIRECT_URL = '/'
 
 RAPIDSMS_HANDLERS = (
+    'shelterbot.handlers.default.DefaultHandler',
     'rapidsms.contrib.echo.handlers.echo.EchoHandler',
     'rapidsms.contrib.echo.handlers.ping.PingHandler',
     'shelterbot.handlers.help.HelpHandler',
