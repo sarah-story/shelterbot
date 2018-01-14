@@ -180,7 +180,7 @@ LOGGING = {
             'propagate': True,
         },
         'rapidsms': {
-            'handlers': ['file', 'console'],
+            'handlers': ['file'],
             'level': 'DEBUG',
             'propagate': True,
         },
