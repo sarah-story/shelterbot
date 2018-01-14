@@ -3,6 +3,10 @@ from shelterbot import settings
 
 
 class HelpHandler(KeywordHandler):
+    """
+    For users to see what the available commands are
+    """
+
     keyword = "help"
 
     def help(self):
