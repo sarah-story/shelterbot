@@ -18,6 +18,10 @@ Let's help people get shelter
      ```
      python manage.py syncdb
      ```
+     For python 3.6, need to install pysocks package:
+      ```
+      pip install pysocks 
+      ```
 
 4. Run locally using heroku:
     ```
