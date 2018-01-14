@@ -16,6 +16,10 @@ PROJECT_PATH = os.path.join(PROJECT_ROOT, 'shelterbot')
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+# Default Response
+
+DEFAULT_RESPONSE = "Hi, this is ShelterBot! Text me what you need!"
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -121,7 +125,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ALLOWED_HOSTS = ["shelter-bot.herokuapp.com", "shelter-bot-dev.herokuapp.com", "localhost"]
+ALLOWED_HOSTS = ["shelter-bot.herokuapp.com", "shelter-bot-dev.herokuapp.com", "localhost", "127.0.0.1"]
 
 ROOT_URLCONF = 'shelterbot.urls'
 
