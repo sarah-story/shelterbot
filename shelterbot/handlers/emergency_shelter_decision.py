@@ -1,9 +1,6 @@
-import logging
 from rapidsms.contrib.handlers.handlers.base import BaseHandler
-from ..utils import terminal_dialog
-
-
-logger = logging.getLogger(__name__)
+from walking_distance_decision import WalkingDistanceDecisionHandler
+from shelterbot.utils import terminal_dialog, save_state
 
 
 class EmergencyShelterDecisionHandler(BaseHandler):
@@ -19,6 +16,7 @@ class EmergencyShelterDecisionHandler(BaseHandler):
             msg.respond("Great! These are your options:")
             # TODO: print all the emergency shelters
             msg.respond("Can you get to any of those on your own?")
-            # TODO: save current state
+            save_state(WalkingDistanceDecisionHandler.__name__, msg)
+            return True
         elif msg_txt == "no" or msg_txt == "n":
-            terminal_dialog.list_standard_shelters(msg)
+            return terminal_dialog.list_standard_shelters(msg)

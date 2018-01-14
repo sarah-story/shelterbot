@@ -1,10 +1,7 @@
-import logging
 import random
 from rapidsms.contrib.handlers.handlers.base import BaseHandler
-from ..utils import terminal_dialog
-
-
-logger = logging.getLogger(__name__)
+from emergency_shelter_decision import EmergencyShelterDecisionHandler
+from shelterbot.utils import terminal_dialog, save_state
 
 
 class WeatherHandler(BaseHandler):
@@ -22,7 +19,7 @@ class WeatherHandler(BaseHandler):
             else:
                 msg.respond("Tonight, emergency shelters will be available")
                 msg.respond("Would you like to go to one?")
-                # TODO: store this user and their state
+                save_state(EmergencyShelterDecisionHandler.__name__, msg)
             return True
 
     @staticmethod

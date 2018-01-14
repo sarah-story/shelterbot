@@ -4,7 +4,7 @@ def list_standard_shelters(msg):
     # TODO list normal shelters
     # for shelter in normal_shelters:
     #    msg.respond(shelter.print_shelter_address)
-    goodluck(msg)
+    return goodluck(msg)
 
 def goodluck(msg):
     msg.respond("Good luck!")
