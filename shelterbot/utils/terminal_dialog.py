@@ -8,5 +8,4 @@ def list_standard_shelters(msg):
 
 def goodluck(msg):
     msg.respond("Good luck!")
-    # TODO: clear this user's state
     return True
