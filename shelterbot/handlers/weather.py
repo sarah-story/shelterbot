@@ -45,11 +45,3 @@ class WeatherHandler(BaseHandler):
 
         return low_temp
 
-
-"""
-# Scratch Files to work with this instead of doing API calls
-
-file = open('C:\\localpath(change this)\\shelterbot\\shelterbot\\handlers\\Sample Forecast JSON.json')
-d = json.load(file)
-"""
-
