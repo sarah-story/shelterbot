@@ -18,6 +18,10 @@ Let's help people get shelter
      ```
      python manage.py syncdb
      ```
+     For python 3.6, need to install pysocks package:
+      ```
+      pip install pysocks 
+      ```
 
 4. Run locally using heroku:
     ```
@@ -29,4 +33,20 @@ Let's help people get shelter
 In your virtual environment:
 ```
 python manage.py test
+```
+
+## Steps for working with Weather API .json files
+
+1. To prevent making unnecessary API calls, make one and save the .json first
+
+2. Use the following code to test the parsed .json. Note that from a file you use json.load vs. json.loads
+
+
+```
+# Scratch Files to work with this instead of doing API calls
+
+# example:
+file = open('C:\\localpath(change this)\\shelterbot\\shelterbot\\handlers\\Sample Forecast JSON.json')
+d = json.load(file)
+d['element 1'][0]
 ```

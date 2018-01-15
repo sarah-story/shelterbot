@@ -1,4 +1,7 @@
-import random
+
+import urllib2
+import json
+
 from rapidsms.contrib.handlers.handlers.base import BaseHandler
 from emergency_shelter_decision import EmergencyShelterDecisionHandler
 from shelterbot.utils import terminal_dialog, save_state
@@ -24,5 +27,21 @@ class WeatherHandler(BaseHandler):
 
     @staticmethod
     def get_weather():
-        # TODO - actually query weather
-        return random.randrange(0, 40, 1) # FIXME
+        # TODO - Maybe we need to structure some try/exception handling here? Not sure where to start here
+
+        # Weather Underground API -- pulling in Nashville's Weather
+        # TODO - make the city/search url dynamic for other locales
+        api_call = urllib2.urlopen(
+            'http://api.wunderground.com/api/69ea94c94dd51287/forecast/q/TN/Nashville.json')  # Nashville hard-coded
+        json_string = api_call.read()
+        parsed_json = json.loads(json_string)
+
+        # Grab the Low Temperature from the forecast of today ([0]) and convert to integer
+        low_temp = parsed_json['forecast']['simpleforecast']['forecastday'][0]['low']['fahrenheit']
+        low_temp = int(low_temp)
+
+        # Close the api_call
+        api_call.close()
+
+        return low_temp
+
