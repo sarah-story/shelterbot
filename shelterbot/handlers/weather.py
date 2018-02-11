@@ -1,11 +1,14 @@
-
-import urllib2
 import json
 
 from rapidsms.contrib.handlers.handlers.base import BaseHandler
 from emergency_shelter_decision import EmergencyShelterDecisionHandler
-from shelterbot.utils import terminal_dialog, save_state
+from shelterbot.utils import terminal_dialog, save_state, weather_util
+from shelterbot.settings import WUNDERGROUND_API_KEY, WUNDERGROUND_LOCALE
+import logging
+import sys
+import traceback
 
+logger = logging.getLogger(__name__)
 
 class WeatherHandler(BaseHandler):
     """
@@ -16,8 +19,11 @@ class WeatherHandler(BaseHandler):
     def dispatch(cls, router, msg):
         if msg.text.lower() == "weather":
             tonight_temp = cls.get_weather()
-            msg.respond("The temperature tonight should be about %d degrees" % tonight_temp)
-            if tonight_temp > 25:
+            if tonight_temp is None:
+                msg.respond("I'm having trouble looking up what the weather will be tonight.")
+            else:
+                msg.respond("The temperature tonight should be about %d degrees" % tonight_temp)
+            if tonight_temp is None or tonight_temp > 25:
                 terminal_dialog.list_standard_shelters(msg)
             else:
                 msg.respond("Tonight, emergency shelters will be available")
@@ -25,23 +31,28 @@ class WeatherHandler(BaseHandler):
                 save_state(EmergencyShelterDecisionHandler.__name__, msg)
             return True
 
-    @staticmethod
-    def get_weather():
-        # TODO - Maybe we need to structure some try/exception handling here? Not sure where to start here
-
-        # Weather Underground API -- pulling in Nashville's Weather
-        # TODO - make the city/search url dynamic for other locales
-        api_call = urllib2.urlopen(
-            'http://api.wunderground.com/api/69ea94c94dd51287/forecast/q/TN/Nashville.json')  # Nashville hard-coded
-        json_string = api_call.read()
+    @classmethod
+    def get_low_from_wondergound_json(cls, json_string):
         parsed_json = json.loads(json_string)
 
         # Grab the Low Temperature from the forecast of today ([0]) and convert to integer
-        low_temp = parsed_json['forecast']['simpleforecast']['forecastday'][0]['low']['fahrenheit']
-        low_temp = int(low_temp)
+        low_temp = \
+            parsed_json['forecast']['simpleforecast']['forecastday'][0]['low'][
+                'fahrenheit']
+        return int(low_temp)
 
-        # Close the api_call
-        api_call.close()
+    @classmethod
+    def get_weather(cls):
+        # TODO - Maybe we need to structure some try/exception handling here? Not sure where to start here
+        try:
+            json_string = weather_util.get_wondergound_json(WUNDERGROUND_API_KEY, WUNDERGROUND_LOCALE)
+            low_temp = cls.get_low_from_wondergound_json(json_string)
 
-        return low_temp
-
+            return low_temp
+        except:
+            logger.error("Something went wrong with getting the weather")
+            exc_type, exc_value, exc_traceback = sys.exc_info()
+            lines = traceback.format_exception(exc_type, exc_value,
+                                               exc_traceback)
+            logger.error(''.join('!! ' + line for line in lines))
+            return None
