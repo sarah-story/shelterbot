@@ -8,6 +8,10 @@ import logging
 import sys
 import traceback
 
+EMERGENCY_SHELTERS_ARE_AVAILABLE = "Tonight, emergency shelters will be available"
+TEMPERATURE_RESPONSE = "The temperature tonight should be about %d degrees"
+WEATHER_LOOKUP_ERROR_RESPONSE = "I'm having trouble looking up what the weather will be tonight."
+
 logger = logging.getLogger(__name__)
 
 class WeatherHandler(BaseHandler):
@@ -20,13 +24,13 @@ class WeatherHandler(BaseHandler):
         if msg.text.lower() == "weather":
             tonight_temp = cls.get_weather()
             if tonight_temp is None:
-                msg.respond("I'm having trouble looking up what the weather will be tonight.")
+                msg.respond(WEATHER_LOOKUP_ERROR_RESPONSE)
             else:
-                msg.respond("The temperature tonight should be about %d degrees" % tonight_temp)
+                msg.respond(TEMPERATURE_RESPONSE % tonight_temp)
             if tonight_temp is None or tonight_temp > 25:
                 terminal_dialog.list_standard_shelters(msg)
             else:
-                msg.respond("Tonight, emergency shelters will be available")
+                msg.respond(EMERGENCY_SHELTERS_ARE_AVAILABLE)
                 msg.respond("Would you like to go to one?")
                 save_state(EmergencyShelterDecisionHandler.__name__, msg)
             return True
