@@ -1,6 +1,7 @@
 from rapidsms.tests.harness import RapidTest
 from shelterbot.handlers import weather
 from shelterbot.utils import terminal_dialog
+from shelters.models import Shelter, Address
 from mock import patch
 
 class WeatherHandlerTest(RapidTest):
@@ -32,6 +33,11 @@ class WeatherHandlerTest(RapidTest):
 
     @patch('shelterbot.handlers.weather.weather_util')
     def test_warm_weather_decision(self, weather_util):
+        # setup some shelters
+        a1 = Address.objects.create(number=123, street="Some St", city="Cityton", state="TN", zip=37898)
+        a2 = Address.objects.create(number=456, street="Other St", city="Townville", state="TN", zip=36787)
+        s1 = Shelter.objects.create(name="Good Shelter", address=a1, allows_men=True, allows_women=True, allows_children=True, allows_pets=True, allows_couples=True, notes=None)
+        s2 = Shelter.objects.create(name="Bad Shelter", address=a2, allows_men=False, allows_women=False, allows_children=False, allows_couples=False, allows_pets=False, notes="This place sucks")
 
         # when warm
         warm_json = '{"forecast":{"simpleforecast":{"forecastday":[{"low":{"fahrenheit": 100}}]}}}'
@@ -41,5 +47,8 @@ class WeatherHandlerTest(RapidTest):
         # then it is seen as warm
         self.assertEqual(self.outbound[0].text, weather.TEMPERATURE_RESPONSE % 100)
         # and normal shelters are offered
-        self.assertEqual(self.outbound[1].text, terminal_dialog.NORMAL_SHELTERS_ARE_OPEN)
+        self.assertTrue(terminal_dialog.NORMAL_SHELTERS_ARE_OPEN in self.outbound[1].text)
+        self.assertTrue(s1.__str__() in self.outbound[1].text)
+        self.assertTrue(s2.__str__() in self.outbound[1].text)
+        self.assertEqual(len(self.outbound[1].text.split("\n")), 4)
 

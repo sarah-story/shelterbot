@@ -1,5 +1,5 @@
 from rapidsms.contrib.handlers.handlers.base import BaseHandler
-from ..utils import terminal_dialog
+from shelterbot.utils import terminal_dialog
 
 
 class WalkingDistanceDecisionHandler(BaseHandler):
