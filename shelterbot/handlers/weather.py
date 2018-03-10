@@ -47,7 +47,6 @@ class WeatherHandler(BaseHandler):
 
     @classmethod
     def get_weather(cls):
-        # TODO - Maybe we need to structure some try/exception handling here? Not sure where to start here
         try:
             json_string = weather_util.get_wondergound_json(WUNDERGROUND_API_KEY, WUNDERGROUND_LOCALE)
             low_temp = cls.get_low_from_wondergound_json(json_string)
