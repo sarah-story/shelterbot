@@ -191,7 +191,7 @@ LOGGING = {
         'shelterbot': {
             'handlers': ['console'],
             'level': 'DEBUG',
-            'propagate': True,
+            'propagate': False,
         },
         '': {
             'handlers': ['console'],
@@ -250,6 +250,10 @@ if TWILLIO_ACCOUNT_SID and TWILLIO_AUTH_TOKEN and TWILLIO_PHONE_NUMBER:
             # 'callback': 'http://<public-django-instance>/backend/twilio/status-callback/',
         }
     }
+
+#Wunderground API settings
+WUNDERGROUND_API_KEY = os.environ.get('WUNDERGROUND_API_KEY', None)
+WUNDERGROUND_LOCALE = os.environ.get('WUNDERGROUND_LOCALE', None)
 
 LOGIN_REDIRECT_URL = '/'
 
