@@ -1,6 +1,7 @@
 from rapidsms.contrib.handlers.handlers.base import BaseHandler
 from state_management.models import ContactState
 from shelterbot import handlers
+from shelterbot.utils import send_error_message
 
 
 class DefaultHandler(BaseHandler):
@@ -15,7 +16,8 @@ class DefaultHandler(BaseHandler):
             handler = getattr(handlers, state.handler)
         except AttributeError:
             state.delete()
-            return False
+            send_error_message(msg)
+            return True
 
         state.delete()
         return handler.dispatch(router, msg)

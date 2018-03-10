@@ -1,5 +1,5 @@
 from rapidsms.contrib.handlers.handlers.base import BaseHandler
-from shelterbot.utils import terminal_dialog
+from shelterbot.utils import terminal_dialog, save_state, send_error_message
 
 
 class WalkingDistanceDecisionHandler(BaseHandler):
@@ -16,3 +16,7 @@ class WalkingDistanceDecisionHandler(BaseHandler):
         elif msg_txt == "no" or msg_txt == "n":
             # TODO: list pickup locations
             return False # FIXME
+        else:
+            save_state(WalkingDistanceDecisionHandler.__name__, msg)
+            send_error_message(msg, available_commands=["YES", "NO"])
+            return True

@@ -2,7 +2,7 @@ import json
 
 from rapidsms.contrib.handlers.handlers.base import BaseHandler
 from emergency_shelter_decision import EmergencyShelterDecisionHandler
-from shelterbot.utils import terminal_dialog, save_state, weather_util
+from shelterbot.utils import terminal_dialog, save_state, weather_util, send_error_message
 from shelterbot.settings import WUNDERGROUND_API_KEY, WUNDERGROUND_LOCALE
 import logging
 import sys
@@ -13,6 +13,7 @@ TEMPERATURE_RESPONSE = "The temperature tonight should be about %d degrees"
 WEATHER_LOOKUP_ERROR_RESPONSE = "I'm having trouble looking up what the weather will be tonight."
 
 logger = logging.getLogger(__name__)
+
 
 class WeatherHandler(BaseHandler):
     """
@@ -52,10 +53,6 @@ class WeatherHandler(BaseHandler):
             low_temp = cls.get_low_from_wondergound_json(json_string)
 
             return low_temp
-        except:
-            logger.error("Something went wrong with getting the weather")
-            exc_type, exc_value, exc_traceback = sys.exc_info()
-            lines = traceback.format_exception(exc_type, exc_value,
-                                               exc_traceback)
-            logger.error(''.join('!! ' + line for line in lines))
+        except Exception as e:
+            logger.exception("Something went wrong with getting the weather: {}".format(e.message))
             return None
