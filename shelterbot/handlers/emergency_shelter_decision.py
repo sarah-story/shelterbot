@@ -1,6 +1,6 @@
 from rapidsms.contrib.handlers.handlers.base import BaseHandler
 from walking_distance_decision import WalkingDistanceDecisionHandler
-from shelterbot.utils import terminal_dialog, save_state
+from shelterbot.utils import terminal_dialog, save_state, send_error_message
 
 
 class EmergencyShelterDecisionHandler(BaseHandler):
@@ -20,3 +20,7 @@ class EmergencyShelterDecisionHandler(BaseHandler):
             return True
         elif msg_txt == "no" or msg_txt == "n":
             return terminal_dialog.list_standard_shelters(msg)
+        else:
+            save_state(EmergencyShelterDecisionHandler.__name__, msg)
+            send_error_message(msg, available_commands=["YES", "NO"])
+            return True
