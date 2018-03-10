@@ -212,6 +212,7 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     # Internal apps
     'state_management',
+    'shelters',
     # External apps
     "django_tables2",
     "selectable",
