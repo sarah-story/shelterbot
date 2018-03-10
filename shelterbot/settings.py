@@ -213,6 +213,7 @@ INSTALLED_APPS = (
     # Internal apps
     'state_management',
     'shelters',
+    'address',
     # External apps
     "django_tables2",
     "selectable",
@@ -234,6 +235,9 @@ INSTALLED_BACKENDS = {
         "ENGINE": "rapidsms.backends.database.DatabaseBackend",
     },
 }
+
+# Google Maps Settings
+GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY', None)
 
 # Twillio Settings
 TWILLIO_ACCOUNT_SID = os.environ.get('TWILLIO_ACCOUNT_SID', None) #TODO: default these for local testing values
