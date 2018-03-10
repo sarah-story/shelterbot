@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import ContactState
+from state_management.models import ContactState
 
 admin.site.register(ContactState)
